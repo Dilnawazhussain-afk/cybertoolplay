@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberToolPlay</title>
+<style>
+:root{--ink:#111;--c:#ffd23f}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background-color:#fffdf7;background-image:radial-gradient(rgba(17,17,17,.16) 1.2px,transparent 1.4px);background-size:22px 22px;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:58px;height:58px;display:grid;place-items:center;font-size:30px;background:#ffd23f;border:3px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-6deg)}
+h1{margin:0;font-size:clamp(1.8rem,5vw,2.6rem);line-height:1;letter-spacing:-.03em;font-weight:900}
+h1 mark{background:#ff7eb6;padding:0 8px;border:3px solid var(--ink);border-radius:10px;display:inline-block;transform:rotate(-2deg)}
+.sub{margin:6px 0 0;font-size:.9rem;color:#4a4a4a}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips span{font-size:.78rem;font-weight:700;padding:6px 12px;background:#fff;border:2px solid var(--ink);border-radius:20px;box-shadow:2px 2px 0 var(--ink)}
+.app{display:grid;grid-template-columns:270px 1fr;gap:24px;align-items:start}
+.side{position:sticky;top:16px;background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);padding:12px}
+.side small{display:block;font-weight:800;font-size:.7rem;letter-spacing:.12em;color:#666;padding:4px 10px 8px}
+.side a{display:flex;align-items:center;gap:12px;padding:11px 12px;margin-bottom:6px;border:2px solid transparent;border-radius:14px;color:var(--ink);text-decoration:none;font-weight:700;transition:transform .12s,box-shadow .12s,background .12s}
+.side a i{font-style:normal;width:36px;height:36px;display:grid;place-items:center;font-size:19px;background:var(--c);border:2px solid var(--ink);border-radius:11px}
+.side a em{margin-left:auto;font-style:normal;font-size:.7rem;color:#777}
+.side a:hover{border-color:var(--ink);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink);background:#fafafa}
+.side a.on{background:var(--c);border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.side a.on em{color:var(--ink)}
+.panel{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);overflow:hidden;min-width:0}
+.ph{display:flex;align-items:center;gap:14px;padding:18px 22px;background:var(--c);border-bottom:3px solid var(--ink)}
+.ph .big{font-size:34px;background:#fff;border:3px solid var(--ink);border-radius:14px;width:58px;height:58px;display:grid;place-items:center;flex:none}
+h2{margin:0;font-size:1.35rem;letter-spacing:-.02em}
+.ph p{margin:2px 0 0;font-size:.9rem}
+.body{padding:22px}
+input[type=text],input[type=password],input[type=file]{width:100%;padding:13px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);font:inherit;outline:none}
+input:focus{box-shadow:4px 4px 0 var(--c)}
+input[type=range]{width:100%;accent-color:#111}
+button{padding:11px 20px;margin:14px 10px 0 0;border:3px solid var(--ink);border-radius:12px;background:var(--c);color:var(--ink);font:inherit;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+button.s{background:#fff}
+.out{margin-top:18px}
+.box{padding:14px 16px;margin-top:12px;border:2px solid var(--ink);border-radius:14px;background:#eafbe0;font-size:.93rem}
+.box.warn{background:#fff3c4}.box.bad{background:#ffdede}
+.lvl{font-size:1.25rem;font-weight:900;letter-spacing:.02em}
+.bar{height:16px;border:2px solid var(--ink);border-radius:10px;background:#fff;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;width:0;background:var(--c);border-right:2px solid var(--ink);transition:width .35s}
+code,.mono{font-family:ui-monospace,Consolas,monospace;word-break:break-all;font-size:.82rem}
+.pw{padding:20px;text-align:center;font-size:1.15rem;border:3px dashed var(--ink);border-radius:14px;background:#fffbea}
+ul{margin:6px 0 0;padding-left:20px}
+label.c{display:inline-flex;gap:8px;align-items:center;margin-top:12px;font-size:.88rem;font-weight:600}
+footer{margin-top:26px;text-align:center;font-size:.82rem;color:#555}
+@media(max-width:800px){.app{grid-template-columns:1fr}.side{position:static;display:flex;overflow-x:auto;gap:6px}.side small{display:none}.side a{margin:0;white-space:nowrap}.side a em{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div class="brand"><div class="logo">🎮</div>
+<div><h1>Cyber<mark>Tool</mark>Play</h1><p class="sub">Play with security tools. Learn how they work.</p></div></div>
+<div class="chips"><span>⚡ 5 Usefull Tools</span><span>🔒 Runs in your browser</span><span>🚫 No data sent</span></div>
+</header>
+
+<div class="app">
+<nav class="side">
+<small>CHOOSE A TOOL</small>
+<a href="#strength" data-t="strength" style="--c:#ffd23f"><i>🔐</i>Password Check<em>01</em></a>
+<a href="#generator" data-t="generator" style="--c:#ff7eb6"><i>🎲</i>Generator<em>02</em></a>
+<a href="#hashing" data-t="hashing" style="--c:#5ce1e6"><i>🧬</i>Hashing Lab<em>03</em></a>
+<a href="#integrity" data-t="integrity" style="--c:#b8f55b"><i>🗂️</i>File Integrity<em>04</em></a>
+<a href="#phishing" data-t="phishing" style="--c:#b69cff"><i>🎣</i>Phishing Scan<em>05</em></a>
+</nav>
+
+<main class="panel" id="panel">
+<div class="ph"><div class="big" id="phi"></div><div><h2 id="pht"></h2><p id="phd"></p></div></div>
+<div class="body">
+
+<div id="strength">
+<input type="password" id="pw" placeholder="Type a password to test..." autocomplete="off">
+<label class="c"><input type="checkbox" id="showpw"> Show password</label>
+<div class="out" id="sOut"></div>
+</div>
+
+<div id="generator" hidden>
+<label for="glen"><b>Length: <span id="gv">16</span></b></label>
+<input type="range" id="glen" min="8" max="64" value="16">
+<button id="gbtn">Generate</button><button class="s" id="gcopy">Copy</button>
+<div class="out" id="gOut"></div>
+</div>
+
+<div id="hashing" hidden>
+<input type="text" id="ht" placeholder="Enter any text or password...">
+<button id="hbtn">Generate hashes</button>
+<div class="out" id="hOut"></div>
+</div>
+
+<div id="integrity" hidden>
+<input type="file" id="fi">
+<button id="fsave">Save fingerprint</button><button class="s" id="fver">Verify file</button>
+<div class="out" id="fOut"></div>
+</div>
+
+<div id="phishing" hidden>
+<input type="text" id="pu" placeholder="https://example.com/login" autocomplete="off">
+<button id="pbtn">Scan link</button>
+<div class="out" id="pOut"></div>
+</div>
+
+</div>
+</main>
+</div>
+<footer>CyberToolPlay · Everything runs locally in your browser. No data ever leaves your device.</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const INFO={
+strength:['🔐','Password Strength Checker','Live analysis of length, variety, patterns and entropy. Use test passwords only.','#ffd23f'],
+generator:['🎲','Secure Password Generator','Uses the browser’s cryptographic random source, not Math.random.','#ff7eb6'],
+hashing:['🧬','Hashing Lab','Compare a plain hash, a salted hash and PBKDF2 side by side.','#5ce1e6'],
+integrity:['🗂️','File Integrity Checker','Save a SHA-256 fingerprint of a file, then verify it later to detect tampering.','#b8f55b'],
+phishing:['🎣','Phishing Link Scanner','Scans a link for warning signs without ever opening it.','#b69cff']};
+const tabs=Object.keys(INFO);
+function show(){let t=location.hash.slice(1);if(!tabs.includes(t))t=tabs[0];
+tabs.forEach(x=>{$(x).hidden=x!==t;document.querySelector('[data-t="'+x+'"]').classList.toggle('on',x===t)});
+const i=INFO[t];$('phi').textContent=i[0];$('pht').textContent=i[1];$('phd').textContent=i[2];
+$('panel').style.setProperty('--c',i[3])}
+addEventListener('hashchange',show);show();
+
+const LOW='abcdefghijklmnopqrstuvwxyz',UP=LOW.toUpperCase(),DIG='0123456789',
+SYM='!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+const hasSym=s=>[...s].some(c=>SYM.includes(c));
+const COMMON=new Set(['password','123456','12345678','qwerty','abc123','111111','iloveyou','admin','welcome','letmein','monkey','dragon','password1','123456789','cricket']);
+const WEAK=['123','abc','qwerty','asdf','000','111','aaa'];
+function entropy(p){let pool=0;
+if(/[a-z]/.test(p))pool+=26;if(/[A-Z]/.test(p))pool+=26;if(/\d/.test(p))pool+=10;if(hasSym(p))pool+=32;
+return pool?p.length*Math.log2(pool):0}
+
+/* Tool 1 */
+function check(){const p=$('pw').value,o=$('sOut');
+if(!p){o.innerHTML='';return}
+let sc=0;const tips=[];
+if(p.length>=12)sc+=2;else if(p.length>=8)sc+=1;else tips.push('Use at least 12 characters.');
+if(/[a-z]/.test(p))sc++;else tips.push('Add lowercase letters (a-z).');
+if(/[A-Z]/.test(p))sc++;else tips.push('Add uppercase letters (A-Z).');
+if(/\d/.test(p))sc++;else tips.push('Add numbers (0-9).');
+if(hasSym(p))sc++;else tips.push('Add symbols (!@#$).');
+if(COMMON.has(p.toLowerCase())){sc=0;tips.push('DANGER: This is a very common password. Change it immediately!')}
+const w=WEAK.find(x=>p.toLowerCase().includes(x));
+if(w){sc--;tips.push('The pattern “'+w+'” is easy to guess.')}
+if(new Set(p).size<=p.length/2){sc--;tips.push('Too many repeated characters.')}
+sc=Math.max(sc,0);
+const e=entropy(p),r=sc>=6?['STRONG','']:sc>=4?['MEDIUM','warn']:['WEAK','bad'];
+const ct=e<40?'seconds to minutes':e<60?'days to months':'extremely long';
+o.innerHTML='<div class="box '+r[1]+'"><span class="lvl">'+r[0]+'</span> &nbsp; Score '+sc+'/6<div class="bar"><i style="width:'+Math.min(100,e/80*100)+'%"></i></div>Entropy: <b>'+e.toFixed(1)+' bits</b><br>Estimated crack time: '+ct+'</div>'+
+(tips.length?'<div class="box warn"><b>Suggestions</b><ul>'+tips.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div>':'')}
+$('pw').addEventListener('input',check);
+$('showpw').addEventListener('change',e=>{$('pw').type=e.target.checked?'text':'password'});
+
+/* Tool 2 */
+function rnd(n){const lim=Math.floor(4294967296/n)*n;let x;
+do{x=crypto.getRandomValues(new Uint32Array(1))[0]}while(x>=lim);return x%n}
+function gen(){const n=+$('glen').value,ch=LOW+UP+DIG+SYM;let p;
+do{p=Array.from({length:n},()=>ch[rnd(ch.length)]).join('')}
+while(!(/[a-z]/.test(p)&&/[A-Z]/.test(p)&&/\d/.test(p)&&hasSym(p)));
+$('gOut').innerHTML='<div class="pw mono" id="gpw">'+esc(p)+'</div><div class="box">Entropy: <b>'+entropy(p).toFixed(1)+' bits</b></div>'}
+$('glen').addEventListener('input',e=>{$('gv').textContent=e.target.value});
+$('gbtn').addEventListener('click',gen);
+$('gcopy').addEventListener('click',async()=>{const el=$('gpw');if(!el)return;
+try{await navigator.clipboard.writeText(el.textContent);$('gcopy').textContent='Copied!'}
+catch(e){$('gcopy').textContent='Select and copy manually'}
+setTimeout(()=>{$('gcopy').textContent='Copy'},1800)});
+gen();
+
+/* Tool 3 */
+const enc=new TextEncoder();
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const sha=async b=>hex(await crypto.subtle.digest('SHA-256',b));
+const cat=(a,b)=>{const o=new Uint8Array(a.length+b.length);o.set(a);o.set(b,a.length);return o};
+$('hbtn').addEventListener('click',async()=>{const t=$('ht').value,o=$('hOut');
+if(!t){o.innerHTML='<div class="box warn">Please enter some text first.</div>';return}
+o.innerHTML='<div class="box">Calculating...</div>';
+const d=enc.encode(t),s1=crypto.getRandomValues(new Uint8Array(16)),s2=crypto.getRandomValues(new Uint8Array(16)),s3=crypto.getRandomValues(new Uint8Array(16));
+const plain=await sha(d),h1=await sha(cat(s1,d)),h2=await sha(cat(s2,d));
+const t0=performance.now();
+const key=await crypto.subtle.importKey('raw',d,'PBKDF2',false,['deriveBits']);
+const pb=hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:s3,iterations:200000,hash:'SHA-256'},key,256));
+const ms=Math.round(performance.now()-t0);
+o.innerHTML='<div class="box"><b>1. Plain SHA-256</b><br><code>'+plain+'</code><br>Same input always gives the same hash, so rainbow table attacks are possible.</div>'+
+'<div class="box"><b>2. Salted hash (two different salts)</b><br>A: <code>'+h1+'</code><br>B: <code>'+h2+'</code><br>Same password, different hashes. Rainbow tables stop working.</div>'+
+'<div class="box"><b>3. PBKDF2 (200,000 rounds)</b><br><code>'+pb+'</code><br>Took '+ms+' ms. It is slow on purpose to make brute force expensive.</div>'});
+
+/* Tool 4 */
+let base={};try{base=JSON.parse(localStorage.getItem('cs_base')||'{}')}catch(e){}
+const saveBase=()=>{try{localStorage.setItem('cs_base',JSON.stringify(base))}catch(e){}};
+async function fh(){const f=$('fi').files[0];if(!f){$('fOut').innerHTML='<div class="box warn">Please choose a file first.</div>';return null}
+return{f,h:await sha(await f.arrayBuffer())}}
+function list(){const k=Object.keys(base);return k.length?'<div class="box"><b>Saved fingerprints</b><ul>'+k.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div>':''}
+$('fsave').addEventListener('click',async()=>{const r=await fh();if(!r)return;
+base[r.f.name]=r.h;saveBase();
+$('fOut').innerHTML='<div class="box"><b>Saved:</b> '+esc(r.f.name)+'<br><code>'+r.h+'</code></div>'+list()});
+$('fver').addEventListener('click',async()=>{const r=await fh();if(!r)return;
+const old=base[r.f.name];let m;
+if(!old)m='<div class="box warn"><b>NOT SAVED</b><br>No fingerprint was saved for this file yet.</div>';
+else if(old===r.h)m='<div class="box"><b>SAFE ✔</b><br>The file is exactly the same as when it was saved.<br><code>'+r.h+'</code></div>';
+else m='<div class="box bad"><b>MODIFIED ✘</b><br>This file has been changed!<br>Old: <code>'+old+'</code><br>New: <code>'+r.h+'</code></div>';
+$('fOut').innerHTML=m+list()});
+$('fOut').innerHTML=list();
+
+/* Tool 5 */
+function phish(){const raw=$('pu').value.trim(),o=$('pOut');
+if(!raw){o.innerHTML='<div class="box warn">Please enter a link first.</div>';return}
+let u;try{u=new URL(/^[a-z]+:\/\//i.test(raw)?raw:'http://'+raw)}catch(e){o.innerHTML='<div class="box bad">That does not look like a valid link.</div>';return}
+const host=u.hostname.toLowerCase(),f=[];let risk=0;
+const add=(n,t)=>{risk+=n;f.push(t)};
+if(u.protocol!=='https:')add(2,'Not using HTTPS, so the connection is not secure.');
+if(/^\d{1,3}(\.\d{1,3}){3}$/.test(host))add(3,'Uses a raw IP address instead of a domain name.');
+if(raw.includes('@'))add(3,'Contains “@”, which can hide the real destination.');
+if(host.split('.').length>4)add(2,'Has an unusually high number of subdomains.');
+if(raw.length>75)add(1,'The link is very long.');
+if((host.match(/-/g)||[]).length>=2)add(1,'The domain contains many hyphens.');
+if(host.includes('xn--'))add(3,'Punycode domain (may use look-alike characters).');
+if(/\.(tk|ml|ga|cf|gq|xyz|top|zip|click)$/.test(host))add(2,'Uses a domain extension often seen in scams.');
+if(/^(bit\.ly|tinyurl\.com|t\.co|goo\.gl|is\.gd|cutt\.ly)$/.test(host))add(2,'URL shortener hides the real destination.');
+const kw=['login','verify','update','secure','bank','account','password','paypal','wallet','otp','kyc'].filter(k=>(host+u.pathname).toLowerCase().includes(k));
+if(kw.length)add(Math.min(kw.length,3),'Suspicious keywords: '+kw.join(', '));
+const lv=risk>=6?['HIGH RISK','bad']:risk>=3?['MEDIUM RISK','warn']:['LOW RISK',''];
+o.innerHTML='<div class="box '+lv[1]+'"><span class="lvl">'+lv[0]+'</span> &nbsp; Risk score: '+risk+'<br>Domain: <code>'+esc(host)+'</code></div>'+
+(f.length?'<div class="box warn"><b>Warning signs</b><ul>'+f.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>':'<div class="box">No major warning signs found. Still, open links carefully.</div>')+
+'<div class="box">This is a heuristic check only, not a guarantee.</div>'}
+$('pbtn').addEventListener('click',phish);
+$('pu').addEventListener('keydown',e=>{if(e.key==='Enter')phish()});
+</script>
+</body>
+</html>
